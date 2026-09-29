@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('取引の入力')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main>
+    <div class="card">
+        <h2 th:text="${transaction.id} != null ? '取引を編集' : '取引を追加'">取引を追加</h2>
+        <form method="post" th:action="@{/transactions}" th:object="${transaction}">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="type-toggle">
+                <label>
+                    <input type="radio" name="type" value="EXPENSE" th:field="*{type}" onclick="toggleCategoryList()"/> 支出
+                </label>
+                <label>
+                    <input type="radio" name="type" value="INCOME" th:field="*{type}" onclick="toggleCategoryList()"/> 収入
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="date">日付</label>
+                <input type="date" id="date" th:field="*{date}" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">金額（円）</label>
+                <input type="number" id="amount" th:field="*{amount}" min="1" required/>
+            </div>
+
+            <div class="form-group" id="expense-categories">
+                <label for="categoryIdExpense">カテゴリ（支出）</label>
+                <select id="categoryIdExpense" name="categoryId">
+                    <option th:each="c : ${expenseCategories}" th:value="${c.id}" th:text="${c.name}"
+                            th:selected="${transaction.category != null and transaction.category.id == c.id}"></option>
+                </select>
+            </div>
+
+            <div class="form-group" id="income-categories" style="display:none;">
+                <label for="categoryIdIncome">カテゴリ（収入）</label>
+                <select id="categoryIdIncome" name="categoryId">
+                    <option th:each="c : ${incomeCategories}" th:value="${c.id}" th:text="${c.name}"
+                            th:selected="${transaction.category != null and transaction.category.id == c.id}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="memo">メモ</label>
+                <input type="text" id="memo" th:field="*{memo}" placeholder="任意"/>
+            </div>
+
+            <button class="btn" type="submit">保存</button>
+            <a class="btn secondary" th:href="@{/transactions}">キャンセル</a>
+        </form>
+    </div>
+</main>
+<script th:inline="javascript">
+    function toggleCategoryList() {
+        var isIncome = document.querySelector('input[name="type"][value="INCOME"]').checked;
+        document.getElementById('expense-categories').style.display = isIncome ? 'none' : 'block';
+        document.getElementById('income-categories').style.display = isIncome ? 'block' : 'none';
+        document.getElementById('categoryIdExpense').disabled = isIncome;
+        document.getElementById('categoryIdIncome').disabled = !isIncome;
+    }
+    toggleCategoryList();
+</script>
+</body>
+</html>

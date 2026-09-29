@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${title} + ' - 家計簿'">家計簿</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header th:fragment="header">
+    <h1>家計簿アプリ</h1>
+    <nav>
+        <a th:href="@{/transactions}">取引一覧</a>
+        <a th:href="@{/transactions/new}">取引を追加</a>
+        <a th:href="@{/categories}">カテゴリ管理</a>
+        <a th:href="@{/receipts}">レシート読み取り</a>
+        <span sec:authentication="name" class="user-name"></span>
+        <form method="post" th:action="@{/logout}">
+            <button type="submit" class="logout-link">ログアウト</button>
+        </form>
+    </nav>
+</header>
+</body>
+</html>

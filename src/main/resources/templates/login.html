@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>ログイン - 家計簿</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<main class="login-main">
+    <div class="login-bg-shape shape-1"></div>
+    <div class="login-bg-shape shape-2"></div>
+    <div class="login-bg-shape shape-3"></div>
+
+    <div class="login-card">
+        <div class="login-icon">💰</div>
+        <h1 class="login-title">家計簿アプリ</h1>
+        <p class="login-subtitle">ログインして収支を管理しましょう</p>
+
+        <p class="error-message" th:if="${param.error}">⚠ ユーザー名またはパスワードが正しくありません。</p>
+        <p class="info-message" th:if="${param.logout}">✓ ログアウトしました。</p>
+
+        <!--
+            action="/login" に対してPOSTすると、Spring Securityが
+            ユーザー名(username)・パスワード(password)を受け取って認証する。
+            CSRFトークンはThymeleaf+Spring Securityの組み合わせで自動的にhidden項目として埋め込まれる。
+        -->
+        <form method="post" th:action="@{/login}">
+            <div class="form-group input-icon-group">
+                <label for="username">ユーザー名</label>
+                <div class="input-icon-wrap">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="username" name="username" placeholder="admin" required autofocus/>
+                </div>
+            </div>
+            <div class="form-group input-icon-group">
+                <label for="password">パスワード</label>
+                <div class="input-icon-wrap">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required/>
+                </div>
+            </div>
+            <button class="btn btn-block btn-glow" type="submit">ログイン</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('カテゴリ管理')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main>
+    <div class="card">
+        <h2>カテゴリを追加</h2>
+        <form method="post" th:action="@{/categories}" th:object="${category}">
+            <div class="form-group">
+                <label for="name">カテゴリ名</label>
+                <input type="text" id="name" th:field="*{name}" required/>
+            </div>
+            <div class="form-group">
+                <label for="type">種別</label>
+                <select id="type" th:field="*{type}">
+                    <option th:each="t : ${types}" th:value="${t}" th:text="${t.label}"></option>
+                </select>
+            </div>
+            <button class="btn" type="submit">追加</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>カテゴリ一覧</h2>
+        <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>カテゴリ名</th>
+                <th>種別</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${categories}">
+                <td th:text="${c.name}">食費</td>
+                <td th:text="${c.type.label}">支出</td>
+                <td>
+                    <form method="post" th:action="@{/categories/{id}/delete(id=${c.id})}"
+                          onsubmit="return confirm('削除してよいですか？');">
+                        <button class="btn danger" type="submit">削除</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

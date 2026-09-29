@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DBUnit フラットXMLデータセット: categoriesとtransactionsテーブルの初期データ -->
+<!-- FK制約のため categoriesを先に記述すること -->
+<dataset>
+    <categories id="1" name="食費" type="EXPENSE"/>
+    <categories id="2" name="給与" type="INCOME"/>
+    <transactions id="1" date="2026-06-01" type="EXPENSE" amount="1500" category_id="1" memo="ランチ"/>
+    <transactions id="2" date="2026-06-15" type="INCOME" amount="300000" category_id="2" memo="月給"/>
+    <transactions id="3" date="2026-05-20" type="EXPENSE" amount="2000" category_id="1" memo="夕食"/>
+</dataset>

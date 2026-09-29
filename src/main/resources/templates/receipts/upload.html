@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('レシート読み取り')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main>
+    <div class="card">
+        <h2>レシートから自動入力</h2>
+        <p>レシートの写真をアップロードすると、金額・カテゴリを自動で読み取ります。</p>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <form method="post" th:action="@{/receipts/analyze}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">レシートの画像ファイル（JPEG / PNG）</label>
+                <input type="file" id="file" name="file" accept="image/*" required/>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">解析する</button>
+                <a th:href="@{/transactions}" class="btn btn-secondary">キャンセル</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

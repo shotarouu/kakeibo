@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DBUnit フラットXMLデータセット: categoriesテーブルの初期データ -->
+<dataset>
+    <categories id="1" name="食費"  type="EXPENSE"/>
+    <categories id="2" name="日用品" type="EXPENSE"/>
+    <categories id="3" name="給与"  type="INCOME"/>
+    <categories id="4" name="ボーナス" type="INCOME"/>
+</dataset>
